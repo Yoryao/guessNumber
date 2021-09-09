@@ -55,6 +55,8 @@
       let intentos = 1;
       let resetButton;
 
+      guessField.focus();
+
       function verificar() {
         let numeroUsuario = Number(guessField.value);
         //number convierte lo ingresado en un numero.
@@ -65,7 +67,7 @@
 
         if (numeroUsuario === numeroAletorio) {
             eleccion.textContent = 'ACERTASTE!!!';
-            eleccion.style.backgroundcolor = 'pink';
+            eleccion.style.backgroundColor = 'pink';
             lowOrHi.textContent = '';
             setGameOver();
         } else if (intentos === 10) {
@@ -73,7 +75,7 @@
             setGameOver();
         } else {
             eleccion.textContent = 'ESE NO ES EL NUMERO';
-            eleccion.style.backgroundcolor = 'red';
+            eleccion.style.backgroundColor = 'red';
             if (numeroUsuario < numeroAletorio) {
                 lowOrHi.textContent = 'MAS ALTO';
             } else if (numeroUsuario > numeroAletorio) {
@@ -95,6 +97,31 @@ function setGameOver() {
     resetButton.textContent = 'Empezar de nuevo';
     document.body.append(resetButton);
     resetButton.addEventListener('click', resetGame);
+}
+
+function resetGame(){
+  intentos = 1;
+
+  //creo un objeto con todos los textos generados al jugar. 
+  //lo recorro con el for y lo convierto en string vacio.
+  const resetParas = document.querySelectorAll('.resultParas p');
+  for (let i = 0 ; i < resetParas.length ; i++) {
+    resetParas[i].textContent = '';
+  }
+
+  //elimino el boton de reset al comenzar.
+  resetButton.parentNode.removeChild(resetButton);
+
+  //habilito lo que se anulo al terminar el juego. 
+  guessField.disabled = false;
+  guessSubmit.disabled = false;
+  guessField.value = '';
+  guessField.focus();
+
+  eleccion.style.backgroundcolor = 'green';
+
+  numeroAletorio = Math.floor(Math.random() * 100 ) + 1;
+
 }
 
 
