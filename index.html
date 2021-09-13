@@ -2,57 +2,55 @@
 <html>
   <head>
     <meta charset="utf-8">
-
+    <link rel='stylesheet' href="./style.css">
     <title>ADIVINA EL NUMERO!!!</title>
 
-    <style>
-      html {
-        font-family: sans-serif;
-      }
-
-      body {
-        width: 50%;
-        max-width: 800px;
-        min-width: 480px;
-        margin: 0 auto;
-      }
-
-      .lastResult {
-        color: white;
-        padding: 3px;
-      }
-    </style>
   </head>
 
   <body>
-    <h1>ENCONTRA EL NÚMERO!!!</h1>
+    <h1 class='titulo'> HOLA ALMA </h1>
 
-    <p>ELEJI UN NUMERO HASTA QUE ENCUENTRES EL CORRECTO. TENES 10 INTENTOS.</p>
+    <h2> ENCONTRA MI NUMERO </h2>
 
+    <p>TENES 10 INTENTOS.</p>
+
+    <!-- Creo el formulario para insertar los numeros-->
     <div class="form">
-      <label for="guessField"> INGRESA UN NUMERO! </label>
-      <input type="text" id="guessField" class="guessField">
-      <input type="submit" value="Suerte!!" class="guessSubmit">
+      <label for="intentoUsuario"> INGRESA UN NUMERO! </label>
+      <input type="text" id="intentoUsuario" class="intentoUsuario">
+      <input type="submit" value="SUERTE" class="guessSubmit">
     </div>
 
     <div class="resultParas">
+      <p class="restantes"></p>
       <p class="guesses"></p>
       <p class="lastResult"></p>
       <p class="lowOrHi"></p>
+      <p class="objetivo"></p>
+      <img class="imagen">
+      
+
     </div>
 
     <script>
 
       let numeroAletorio = Math.floor(Math.random() * 100) + 1;
 
+      
+      const restantes = document.querySelector('.restantes'); 
       const elegidos = document.querySelector('.guesses');
       const eleccion = document.querySelector('.lastResult');
       const lowOrHi = document.querySelector('.lowOrHi');
+      const objetivo = document.querySelector('.objetivo');   
+      const imagen = document.querySelector('.imagen');
 
       const guessSubmit = document.querySelector('.guessSubmit');
-      const guessField = document.querySelector('.guessField');
+      const guessField = document.querySelector('.intentoUsuario');
 
       let intentos = 1;
+
+      let intentosRestantes = 9;
+
       let resetButton;
 
       guessField.focus();
@@ -64,26 +62,40 @@
             elegidos.textContent = 'Intentos anteriores: ';
         }
         elegidos.textContent += numeroUsuario + ' ';
+        restantes.textContent = 'INTENTOS RESTANTES: ' + intentosRestantes;
+
 
         if (numeroUsuario === numeroAletorio) {
             eleccion.textContent = 'ACERTASTE!!!';
-            eleccion.style.backgroundColor = 'pink';
             lowOrHi.textContent = '';
             setGameOver();
         } else if (intentos === 10) {
             eleccion.textContent = 'PERDISTE!! :(';
+            lowOrHi.textContent = '';
+            objetivo.textContent = 'MI NUMERO ERA EL: ' + numeroAletorio;
+
             setGameOver();
         } else {
             eleccion.textContent = 'ESE NO ES EL NUMERO';
-            eleccion.style.backgroundColor = 'red';
+
+            let img = document.createElement('img');
+            img.src = "../image/success.jpg";
+            img.alt = "Success";
+            document.body.appendChild(img);
+
+
+
+
+            //eleccion.style.backgroundColor = 'red';
             if (numeroUsuario < numeroAletorio) {
-                lowOrHi.textContent = 'MAS ALTO';
+                lowOrHi.textContent = 'MI NUMERO ES MAS ALTO';
             } else if (numeroUsuario > numeroAletorio) {
-                lowOrHi.textContent = 'MAS BAJO';
+                lowOrHi.textContent = 'MI NUMERO ES MAS BAJO';
             }
         }
 
         intentos++;
+        intentosRestantes--;
         guessField.value = '';
         guessField.focus();
     }

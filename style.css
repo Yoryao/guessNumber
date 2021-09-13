@@ -1,0 +1,33 @@
+body {
+    
+    background-color: pink;
+    align-items: center;
+}
+
+.titulo {
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    color: indigo;
+    border: 2px dotted red;
+    display: block;
+}
+
+h2 {
+    text-align: center;
+    text-decoration: underline green;
+}
+
+p {
+    text-align: center;
+}
+
+div {
+    padding: auto;
+    margin-top: 50px;
+   
+}
+
+.form {
+    margin-left: 200px;
+}
